@@ -13,3 +13,6 @@ Desktop.ini
 # Misc
 *.log
 .env
+
+# ZCode internal
+.zcode/
