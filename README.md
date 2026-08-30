@@ -2,22 +2,35 @@
 
 Landing page profil + halaman aplikasi (termasuk KasirKu). Struktur dibuat agar bisa menampung banyak aplikasi ke depan. **Proyek pribadi Andreafif Cyto Prasadana Sutrisno.**
 
+Dibangun dengan **Astro 5** (output statis) — tema futuristik penuh animasi, dwibahasa ID/EN otomatis, dark/light mode.
+
 ## Fitur
-- 🌐 **Dwi-bahasa otomatis** — konten default Bahasa Indonesia; pengunjung dari luar Indonesia otomatis melihat English (deteksi bahasa browser + timezone). Tersedia toggle manual 🇬🇧/🇮🇩.
-- 🌗 **Light & dark mode** — light default, toggle 🌙/☀️, preferensi tersimpan di browser.
-- 📦 **Tanpa build step** — HTML + CSS + JS murni, tanpa dependency eksternal/CDN.
+- 🌐 **Dwi-bahasa otomatis** — konten default Bahasa Indonesia; pengunjung dari luar Indonesia otomatis melihat English (deteksi bahasa browser + timezone). Toggle manual 🇬🇧/🇮🇩 persist antar halaman.
+- 🌗 **Dark futuristik + light mode** — aurora glow, grid perspektif bergerak, bintang berkelip, scan-line; toggle 🌙/☀️ tersimpan di browser.
+- ✨ **Animasi** — scroll reveal berjenjang, tilt 3D kartu, glow mengikuti kursor, page transition halus (View Transitions API).
+- 📦 **Static output** — hasil build berupa HTML+CSS+JS murni, tanpa runtime server.
 
 ## Struktur folder
 ```
-acps.my.id/
-├── index.html              → halaman utama (profil ACPS, daftar aplikasi)
-├── assets/
-│   ├── style.css           → design system (tema light/dark, komponen)
-│   └── app.js              → i18n (ID/EN) + toggle tema
-└── kasirku/
-    ├── index.html          → landing KasirKu
-    ├── privacy.html        → Kebijakan Privasi KasirKu
-    └── terms.html          → Syarat & Ketentuan KasirKu
+acps/
+├── astro.config.mjs
+├── src/
+│   ├── i18n.ts               → kamus teks ID & EN
+│   ├── layouts/Layout.astro  → design system (tema, i18n, animasi)
+│   └── pages/
+│       ├── index.astro       → halaman utama (profil ACPS, daftar aplikasi)
+│       └── kasirku/
+│           ├── index.astro   → landing KasirKu
+│           ├── privacy.astro → Kebijakan Privasi KasirKu
+│           └── terms.astro   → Syarat & Ketentuan KasirKu
+└── dist/                     → hasil build (yang di-upload ke hosting)
+```
+
+## Build
+```bash
+npm install
+npm run build      # hasil di dist/
+npm run dev        # development server (hot reload)
 ```
 
 ## URL yang diharapkan (dipakai di OAuth consent screen)
@@ -28,8 +41,10 @@ acps.my.id/
 | Terms of service | `https://acps.my.id/kasirku/terms` |
 | Authorized domain | `acps.my.id` |
 
+> Privacy & terms kini di-build sebagai folder (`/kasirku/privacy/index.html`). URL tanpa trailing slash tetap disajikan dengan benar oleh nginx/Apache.
+
 ## Cara deploy (home server / hosting)
-Upload seluruh isi folder ini ke root web server (misal `public_html`, `www`, atau `/var/www/html` di home server). Tidak ada dependensi — murni HTML+CSS+JS statis, tidak butuh build step.
+Jalankan `npm run build`, lalu upload **seluruh isi folder `dist/`** ke root web server (misal `public_html`, `www`, atau `/var/www/html` di home server).
 
 Contoh nginx:
 ```
@@ -39,12 +54,12 @@ server {
     index index.html;
 }
 ```
-Contoh Apache: taruh file di `htdocs` / `public_html`.
+Contoh Apache: taruh isi `dist/` di `htdocs` / `public_html`.
 
 ## Menambah aplikasi baru
-1. Buat subfolder baru (misal `app2/`) berisi `index.html`.
-2. Tambahkan kartunya di `index.html` root (seksi `.apps`).
-3. Tambahkan kunci teks di kamus `id` & `en` pada `assets/app.js`.
+1. Buat folder `src/pages/<nama>/` berisi `index.astro` (import `Layout`).
+2. Tambahkan kartunya di `src/pages/index.astro` (seksi `.apps`).
+3. Tambahkan kunci teks di kamus `id` & `en` pada `src/i18n.ts`.
 4. Ikuti workflow dokumentasi: lihat `docs/README.md` dan skill `.agents/skills/doc-flow/SKILL.md`.
 
 ## Cara verifikasi setelah deploy
@@ -52,6 +67,6 @@ Contoh Apache: taruh file di `htdocs` / `public_html`.
 2. Pastikan HTTPS aktif (SSL cert). Kalau pakai Cloudflare: mode **Full (strict)**.
 3. Setelah halaman bisa diakses publik, isi URL-nya di Google Cloud Console (OAuth consent screen → Branding) — lihat tabel di atas.
 
-> Catatan: Google memverifikasi URL ini saat peninjauan aplikasi. Pastikan isi privacy benar-benar terbaca (bukan halaman kosong/error). Konten default halaman adalah Bahasa Indonesia dan tetap terbaca tanpa JavaScript, jadi aman untuk crawler.
+> Catatan: Google memverifikasi URL ini saat peninjauan aplikasi. Konten default halaman adalah Bahasa Indonesia dan tetap terbaca tanpa JavaScript (ada fallback `<noscript>`), jadi aman untuk crawler.
 
 © 2026 Andreafif Cyto Prasadana Sutrisno · ACPS — proyek pribadi

@@ -1,16 +1,16 @@
 # Feature: KasirKu (Aplikasi POS UMKM Indonesia)
 
 ## Tujuan
-KasirKu adalah aplikasi Point of Sale (POS) untuk UMKM Indonesia yang berjalan **offline-first**. Landing page ini menjelaskan fitur, data, dan kebijakan aplikasi — sekaligus menjadi lokasi untuk **Privacy Policy** dan **Terms of Service** yang diperlukan saat pengajuan review Google Play / OAuth consent screen.
+KasirKu adalah aplikasi Point of Sale (POS) untuk UMKM Indonesia yang berjalan **offline-first**. Landing page ini menjelaskan fitur, data, dan kebijakan aplikasi — sekaligus menjadi lokasi **Privacy Policy** dan **Terms of Service** yang diperlukan saat pengajuan review Google Play / OAuth consent screen.
 
 ## Lokasi file
 | File | Peran |
 |---|---|
-| `kasirku/index.html` | Landing page KasirKu |
-| `kasirku/privacy.html` | Kebijakan Privasi (Privacy Policy) |
-| `kasirku/terms.html` | Syarat & Ketentuan (Terms of Service) |
-| `assets/style.css` | Design system bersama (light + dark) |
-| `assets/app.js` | i18n (ID/EN) + toggle tema |
+| `src/pages/kasirku/index.astro` | Landing page KasirKu |
+| `src/pages/kasirku/privacy.astro` | Kebijakan Privasi (Privacy Policy) |
+| `src/pages/kasirku/terms.astro` | Syarat & Ketentuan (Terms of Service) |
+| `src/layouts/Layout.astro` | Tema futuristik + i18n + animasi (bersama) |
+| `src/i18n.ts` | Kamus teks ID/EN |
 
 ## URL (dipakai di OAuth consent screen)
 | Halaman | URL |
@@ -20,38 +20,37 @@ KasirKu adalah aplikasi Point of Sale (POS) untuk UMKM Indonesia yang berjalan *
 | Terms of service | `https://acps.my.id/kasirku/terms` |
 | Authorized domain | `acps.my.id` |
 
+> Hasil build Astro memakai format directory: `/kasirku/privacy/index.html`. Server menyajikan URL tanpa trailing slash dengan benar.
+
 ## Identitas pengembang
 Dikembangkan dan dikelola **secara independen sebagai proyek pribadi** oleh **Andreafif Cyto Prasadana Sutrisno** (bukan tim/perusahaan). Email kontak: `andre.afif35@gmail.com`.
 
 ## Fitur Bahasa (i18n)
-Berlaku di ketiga halaman KasirKu (mekanisme sama dengan landing page ACPS):
-- Default konten HTML = Bahasa Indonesia; JS mengganti ke English bila pengunjung terdeteksi di luar Indonesia (navigator.language bukan `id*` dan timezone bukan zona WIB/WITA/WIT).
-- Toggle manual 🇬🇧/🇮🇩 di hero; preferensi disimpan di `localStorage` (`acps-lang`).
-- Judul halaman (`<title>`) ikut diterjemahkan per halaman (`kas.title`, `privacy.title`, `terms.title`).
+Berlaku di ketiga halaman KasirKu (mekanisme sama dengan landing ACPS):
+- Default konten HTML = Bahasa Indonesia; JS mengganti ke English bila pengunjung terdeteksi di luar Indonesia.
+- Toggle manual 🇬🇧/🇮🇩 persist antar halaman (`data-astro-transition-persist`); preferensi di `localStorage['acps-lang']`.
+- `<title>` per halaman via kunci `kas.title`, `privacy.title`, `terms.title`.
 
-## Isi landing page (`kasirku/index.html`)
-- Hero: judul "🏪 KasirKu" + tagline "Teman usaha setiap hari — aplikasi POS untuk UMKM Indonesia".
+## Isi landing page (`kasirku/index.astro`)
+- Hero: badge "✦ POS · Offline-first", judul "🏪 KasirKu", tagline.
 - Deskripsi: POS **offline di perangkat**, kelola produk, transaksi, piutang, laporan harian + backup otomatis ke Google Drive milik pengguna.
-- Kartu fitur (grid `.apps`):
-  1. **Kasir cepat** — katalog produk & checkout sekali sentuh, struk thermal 58/80 mm.
-  2. **Data milik Anda** — data tersimpan lokal, backup hanya ke Drive akun pengguna.
-  3. **Gratis & offline** — tanpa biaya bulanan, tetap berjalan tanpa internet untuk transaksi.
-- Tombol: Privacy Policy & Terms of Service (`.btn`).
+- 3 kartu fitur (tilt 3D + glow): ⚡ Kasir cepat · 🔒 Data milik Anda · 📶 Gratis & offline.
+- Tombol pill: Kebijakan Privasi & Syarat & Ketentuan.
 - Footer: `© 2026 Andreafif Cyto Prasadana Sutrisno · KasirKu`.
 
-## Isi Privacy Policy (`kasirku/privacy.html`)
+## Isi Privacy Policy (`kasirku/privacy.astro`)
 - Terakhir diperbarui: 30 Agustus 2026.
 - Bagian: Data yang Dikumpulkan (data usaha, akun Google, izin akses Drive), Cara Penggunaan Data, Akses Google Drive & Backup (scope `drive.appdata`), Izin Aplikasi (Bluetooth/Internet/Notifikasi), Penyimpanan & Keamanan, Hak Pengguna, Perubahan Kebijakan, Hubungi Kami.
 - Poin penting: **offline-first** — hampir semua data tidak dikirim ke server; tidak menjual/membagikan data; token Drive hanya saat backup diaktifkan.
 
-## Isi Terms of Service (`kasirku/terms.html`)
+## Isi Terms of Service (`kasirku/terms.astro`)
 - Terakhir diperbarui: 30 Agustus 2026.
 - Bagian: Lisensi Penggunaan, Tanggung Jawab Data, Ketersediaan & Perubahan, Pembatasan, Batasan Tanggung Jawab, Hukum yang Berlaku (RI), Hubungi Kami.
 
 ## Catatan teknis
-- HTML + CSS + JS murni, tanpa dependency eksternal; CSS/JS dari `assets/` (path relatif `../assets/`).
-- Tema: emerald modern (mint `#10B981` → deep `#047857`), light default + dark mode via `data-theme`.
-- Link "Kembali ke beranda" memakai path relatif (`index.html`) — benar untuk subfolder.
+- Tema: dark futuristik default (aurora emerald/cyan/violet, grid perspektif, bintang, scan-line) + light mode.
+- Semua paragraf legal memakai scroll reveal berjenjang; `<noscript>` fallback agar konten tetap terbaca tanpa JS (penting untuk crawler Google).
+- Konten legal TIDAK berubah maknanya sejak v1 — hanya tampilan & mekanisme bahasa yang berubah.
 
 ## Status
 - Aktif; konten siap dipakai untuk review Google Play.

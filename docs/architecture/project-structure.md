@@ -1,56 +1,60 @@
 # Architecture: Struktur Project ACPS
 
 ## Ringkasan
-Project statis murni (HTML + CSS + JS, **tanpa dependency eksternal dan tanpa build step**). Struktur dirancang agar **bisa menampung banyak aplikasi** — setiap aplikasi adalah subfolder sendiri yang ditautkan dari `index.html` root. Ada **design system bersama** di `assets/` (tema + i18n) yang dipakai semua halaman.
+Project **Astro 5** (output statis). Struktur dirancang agar **bisa menampung banyak aplikasi** — setiap aplikasi = satu folder di `src/pages/`. Ada **design system futuristik** di `src/layouts/Layout.astro` (tema + i18n + animasi) yang dipakai semua halaman.
+
+> ⚠️ Perubahan besar v2.0: migrasi dari HTML statis manual ke **Astro**. Sekarang butuh `npm install` + `npm run build`; hasil deploy ada di folder `dist/`.
 
 ## Diagram struktur
 ```
 acps/
-├── index.html                ← halaman utama (hub ACPS, daftar aplikasi)
-├── README.md                 ← panduan project + cara deploy
-├── AGENTS.md                 ← aturan untuk AI/agent (wajib pakai doc-flow)
-├── .gitignore
-├── assets/
-│   ├── style.css             ← design system: token warna, light+dark, komponen
-│   └── app.js                ← i18n (deteksi bahasa ID/EN + toggle) & toggle tema
-├── docs/
-│   ├── README.md             ← indeks dokumentasi
-│   ├── architecture/
-│   │   └── project-structure.md
-│   └── features/
-│       ├── landing-page.md
-│       └── kasirku.md
-├── .agents/
-│   └── skills/
-│       └── doc-flow/
-│           └── SKILL.md      ← workflow dokumentasi (wajib dijalankan)
-└── kasirku/                  ← aplikasi KasirKu
-    ├── index.html            ← landing KasirKu
-    ├── privacy.html          ← Kebijakan Privasi
-    └── terms.html            ← Syarat & Ketentuan
+├── astro.config.mjs          ← konfigurasi Astro (output: static)
+├── package.json              ← script: dev / build / preview
+├── tsconfig.json
+├── src/
+│   ├── i18n.ts               ← kamus teks ID & EN (satu-satunya sumber terjemahan)
+│   ├── layouts/
+│   │   └── Layout.astro      ← design system: tema futuristik, i18n, animasi, kontrol
+│   └── pages/
+│       ├── index.astro       ← halaman utama (hub ACPS, daftar aplikasi)
+│       └── kasirku/
+│           ├── index.astro   ← landing KasirKu
+│           ├── privacy.astro ← Kebijakan Privasi
+│           └── terms.astro   ← Syarat & Ketentuan
+├── docs/                     ← dokumentasi (lihat docs/README.md)
+├── .agents/skills/doc-flow/  ← workflow dokumentasi (wajib)
+└── dist/                     ← hasil build (gitignored; ini yang di-upload ke hosting)
 ```
 
-## Cara halaman dihubungkan
-- **Root → aplikasi**: `index.html` memakai link relatif `<a href="kasirku/">`.
-- **Dalam subfolder**: halaman seperti `privacy.html` memakai link relatif `index.html` untuk kembali ke landing KasirKu (bukan ke root).
-- **Aset bersama**: halaman root memakai `assets/style.css`; subfolder memakai `../assets/style.css`.
+## Build & deploy
+```bash
+npm install
+npm run build     # menghasilkan dist/
+```
+Upload **isi `dist/`** ke root web server (`public_html`/`/var/www/html`). Tidak ada runtime server — hasil akhirnya HTML+CSS+JS statis.
 
-## Fitur lintas-halaman (assets/app.js)
-- **i18n**: default HTML = Bahasa Indonesia (SEO/crawler-friendly). Pengunjung non-Indonesia otomatis dapat English (deteksi `navigator.language` + timezone). Toggle manual 🇬🇧/🇮🇩 tersimpan di `localStorage['acps-lang']`.
-- **Tema**: light default + dark (`data-theme` pada `<html>`), toggle 🌙/☀️ tersimpan di `localStorage['acps-theme']`, fallback `prefers-color-scheme`.
-- Teks diterjemahkan lewat atribut `data-i18n` (teks biasa) / `data-i18n-html` (bermarkup); `<title>` per halaman via `body[data-page]` + kunci `<page>.title`.
+## URL hasil build (format directory)
+| Halaman | URL |
+|---|---|
+| Home | `https://acps.my.id/` |
+| KasirKu | `https://acps.my.id/kasirku/` |
+| Privacy | `https://acps.my.id/kasirku/privacy/` |
+| Terms | `https://acps.my.id/kasirku/terms/` |
 
-## Aturan penamaan & penambahan aplikasi baru
-- Setiap aplikasi = subfolder sendiri di root (misal `app2/`), berisi minimal `index.html`.
-- Kartu aplikasi ditambahkan di seksi `.apps` pada `index.html` root.
-- Teks baru WAJIB punya kunci i18n di `assets/app.js` (kamus `id` dan `en`).
-- Setiap fitur baru WAJIB punya dokumentasi di `docs/features/<nama>.md` (lihat `docs/README.md`).
+> Catatan: privacy & terms kini berupa folder `index.html` (`/kasirku/privacy/`), bukan `privacy.html`. Untuk OAuth consent screen Google, isi URL tanpa trailing slash (`https://acps.my.id/kasirku/privacy`) — server akan menyajikan `privacy/index.html`.
+
+## Fitur lintas-halaman (Layout.astro)
+- **i18n**: default HTML = Bahasa Indonesia (SEO/crawler-friendly). Pengunjung non-Indonesia otomatis English (deteksi `navigator.language` + timezone). Toggle manual 🇬🇧/🇮🇩 di `localStorage['acps-lang']`.
+- **Tema**: dark default futuristik + light, toggle 🌙/☀️ di `localStorage['acps-theme']`, fallback `prefers-color-scheme`. Anti-FOUC via inline script sebelum paint.
+- **Animasi**: scroll reveal (IntersectionObserver + fallback langsung untuk elemen terlihat), tilt 3D kartu, glow kursor radial, aurora drift, grid perspektif bergerak, bintang twinkle, scan-line, page transition (View Transitions via `ClientRouter`), kontrol persist antar halaman (`data-astro-transition-persist`).
+- **Aksesibilitas**: `prefers-reduced-motion` mematikan animasi; `<noscript>` memastikan konten tetap terlihat tanpa JS.
+
+## Aturan penambahan aplikasi baru
+1. Buat folder di `src/pages/<nama>/` dengan `index.astro` (+ halaman legal bila perlu), import `Layout` dari `../../layouts/Layout.astro`.
+2. Tambah kunci teks di `src/i18n.ts` (kamus `id` DAN `en` — keduanya wajib).
+3. Tambah kartu di seksi `.apps` pada `src/pages/index.astro`.
+4. Buat `docs/features/<nama>.md` + daftarkan di `docs/README.md`.
 
 ## Identitas
 - Pemilik: **Andreafif Cyto Prasadana Sutrisno** — proyek pribadi (bukan tim).
 - Email publik: `andre.afif35@gmail.com`.
-
-## URL & deployment
-- Domain: `acps.my.id`
-- Deploy: upload seluruh isi folder ke root web server (`public_html`/`www`/`/var/www/html`).
-- Tidak ada build step; lihat `README.md` untuk contoh konfigurasi nginx/Apache.

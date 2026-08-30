@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout
+  page="home"
+  titleId="ACPS — Beranda"
+  titleEn="ACPS — Home"
+  descId="ACPS — halaman utama aplikasi & layanan pribadi Andreafif Cyto Prasadana Sutrisno."
+  descEn="ACPS — home hub of personal apps & services by Andreafif Cyto Prasadana Sutrisno."
+  footerKey="footer.acps"
+>
+  <header class="hero">
+    <span class="kicker">✦ ACPS · Personal Projects</span>
+    <h1>ACPS</h1>
+    <p class="sub" data-i18n="home.tagline">Kumpulan aplikasi &amp; layanan dari proyek pribadi saya</p>
+  </header>
+
+  <div class="wrap">
+    <p class="intro reveal" data-i18n="home.intro">Selamat datang di halaman utama. Berikut aplikasi-aplikasi yang saya kembangkan secara independen.</p>
+
+    <div class="apps">
+      <a class="card app-card tilt reveal" href="/kasirku/" data-delay="100">
+        <div class="emoji">🏪</div>
+        <h3>KasirKu</h3>
+        <p data-i18n="home.kasirku.desc">Aplikasi POS untuk UMKM Indonesia — kasir, katalog, piutang, laporan, backup Drive.</p>
+        <span class="badge" data-i18n="home.kasirku.badge">Buka →</span>
+      </a>
+      <div class="card soon reveal" data-delay="220">
+        <div class="emoji">🚀</div>
+        <p data-i18n="home.soon">Segera hadir — aplikasi berikutnya sedang dikembangkan.</p>
+      </div>
+    </div>
+  </div>
+</Layout>

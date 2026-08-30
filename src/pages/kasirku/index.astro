@@ -1,0 +1,44 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  page="kas"
+  titleId="KasirKu — Aplikasi POS UMKM Indonesia"
+  titleEn="KasirKu — POS App for Indonesian Small Businesses"
+  descId="KasirKu — aplikasi POS offline untuk UMKM Indonesia. Kelola produk, transaksi, piutang, laporan, dan backup Google Drive."
+  descEn="KasirKu — offline POS app for Indonesian small businesses. Products, transactions, receivables, reports, and Google Drive backup."
+  footerKey="footer.kasirku"
+>
+  <header class="hero">
+    <span class="kicker">✦ POS · Offline-first</span>
+    <h1>🏪 KasirKu</h1>
+    <p class="sub" data-i18n="kas.tagline">Teman usaha setiap hari — aplikasi POS untuk UMKM Indonesia</p>
+  </header>
+
+  <div class="wrap">
+    <p class="intro reveal" data-i18n-html="kas.desc">KasirKu adalah aplikasi kasir (Point of Sale) yang berjalan <strong>offline di perangkat Anda</strong>. Kelola produk, transaksi, piutang, dan laporan harian — plus cadangan (backup) otomatis ke Google Drive milik Anda sendiri.</p>
+
+    <div class="apps">
+      <div class="card tilt reveal" data-delay="100">
+        <div class="emoji">⚡</div>
+        <h3 data-i18n="kas.c1h">Kasir cepat</h3>
+        <p data-i18n="kas.c1p">Katalog produk &amp; checkout sekali sentuh, struk thermal 58/80 mm.</p>
+      </div>
+      <div class="card tilt reveal" data-delay="200">
+        <div class="emoji">🔒</div>
+        <h3 data-i18n="kas.c2h">Data milik Anda</h3>
+        <p data-i18n="kas.c2p">Data tersimpan lokal di perangkat. Backup hanya ke Google Drive akun Anda.</p>
+      </div>
+      <div class="card tilt reveal" data-delay="300">
+        <div class="emoji">📶</div>
+        <h3 data-i18n="kas.c3h">Gratis &amp; offline</h3>
+        <p data-i18n="kas.c3p">Tanpa biaya bulanan, tetap berjalan tanpa internet untuk transaksi.</p>
+      </div>
+    </div>
+
+    <div class="links reveal" data-delay="380">
+      <a class="btn" href="/kasirku/privacy/" data-i18n="kas.privacy">Kebijakan Privasi</a>
+      <a class="btn" href="/kasirku/terms/" data-i18n="kas.terms">Syarat &amp; Ketentuan</a>
+    </div>
+  </div>
+</Layout>

@@ -16,3 +16,8 @@ Desktop.ini
 
 # ZCode internal
 .zcode/
+
+# Astro / Node
+node_modules/
+dist/
+.astro/

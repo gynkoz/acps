@@ -38,9 +38,10 @@ Apa yang dilakukan `doc-flow`:
 
 ## Konvensi project
 
-- Bahasa konten: **dwibahasa (ID default + EN otomatis)**. Konten HTML default Bahasa Indonesia; setiap teks baru WAJIB punya kunci i18n di `assets/app.js` (kamus `id` dan `en`) + atribut `data-i18n`/`data-i18n-html` di HTML. Dokumentasi teknis dalam Bahasa Indonesia.
-- Stack: HTML + CSS + JS murni, **tanpa dependency eksternal** (tanpa CDN), tanpa build step. Aset bersama di `assets/style.css` & `assets/app.js`.
-- Tema: emerald modern (mint `#10B981` → deep `#047857`), light default + dark mode via `data-theme` di `<html>`.
+- Framework: **Astro 5** (output statis). Halaman di `src/pages/`, layout & design system di `src/layouts/Layout.astro`. Build: `npm run build` → `dist/`.
+- Bahasa konten: **dwibahasa (ID default + EN otomatis)**. Konten HTML default Bahasa Indonesia; setiap teks baru WAJIB punya kunci i18n di `src/i18n.ts` (kamus `id` dan `en`) + atribut `data-i18n`/`data-i18n-html` di markup. Dokumentasi teknis dalam Bahasa Indonesia.
+- Tema: **dark futuristik default** (aurora emerald/cyan/violet, grid perspektif, bintang, scan-line) + light mode via `data-theme`. Animasi: scroll reveal (`.reveal`), tilt 3D (`.tilt`), page transition (ClientRouter). Hormati `prefers-reduced-motion` dan sediakan fallback `<noscript>`.
+- Tanpa dependency eksternal runtime (tanpa CDN); font stack sistem.
 - Identitas: proyek **pribadi** Andreafif Cyto Prasadana Sutrisno — jangan tulis sebagai tim/perusahaan.
-- Commit: pesan deskriptif; dokumentasi disertakan dalam commit yang sama dengan perubahan kodenya.
+- Commit: pesan deskriptif; dokumentasi disertakan dalam commit yang sama dengan perubahan kodenya. Jangan commit `node_modules/`, `dist/`, `.astro/`.
 - Identitas git: `andreafifcps` / `andre.afif35@gmail.com`.
