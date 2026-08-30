@@ -38,8 +38,9 @@ Apa yang dilakukan `doc-flow`:
 
 ## Konvensi project
 
-- Bahasa: konten situs dalam **Bahasa Indonesia**; dokumentasi teknis juga dalam Bahasa Indonesia.
-- Stack: HTML + CSS inline, **tanpa dependency eksternal**, tanpa build step.
-- Tema: emerald (`#0F766E` → `#115E59` gradient), dark `#1E293B`, bg `#F8FAFC`.
+- Bahasa konten: **dwibahasa (ID default + EN otomatis)**. Konten HTML default Bahasa Indonesia; setiap teks baru WAJIB punya kunci i18n di `assets/app.js` (kamus `id` dan `en`) + atribut `data-i18n`/`data-i18n-html` di HTML. Dokumentasi teknis dalam Bahasa Indonesia.
+- Stack: HTML + CSS + JS murni, **tanpa dependency eksternal** (tanpa CDN), tanpa build step. Aset bersama di `assets/style.css` & `assets/app.js`.
+- Tema: emerald modern (mint `#10B981` → deep `#047857`), light default + dark mode via `data-theme` di `<html>`.
+- Identitas: proyek **pribadi** Andreafif Cyto Prasadana Sutrisno — jangan tulis sebagai tim/perusahaan.
 - Commit: pesan deskriptif; dokumentasi disertakan dalam commit yang sama dengan perubahan kodenya.
 - Identitas git: `andreafifcps` / `andre.afif35@gmail.com`.
