@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACPS — Home</title>
+<style>
+  :root { --emerald: #0F766E; --dark: #1E293B; --bg: #F8FAFC; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--dark); line-height: 1.7; min-height: 100vh; display: flex; flex-direction: column; }
+  header { background: linear-gradient(135deg, #0F766E, #115E59); color: #fff; padding: 56px 24px; text-align: center; }
+  header h1 { font-size: 2.4rem; margin-bottom: 8px; }
+  header p { font-size: 1.1rem; opacity: .9; }
+  main { max-width: 860px; margin: 0 auto; padding: 40px 24px; flex: 1; }
+  .intro { text-align: center; margin-bottom: 32px; font-size: 1.05rem; }
+  .apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  .app-card { background: #fff; border: 1px solid #E2E8F0; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,.04); display: block; text-decoration: none; color: inherit; transition: transform .15s, box-shadow .15s; }
+  .app-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,.08); }
+  .app-card .emoji { font-size: 2rem; }
+  .app-card h3 { color: var(--emerald); margin: 8px 0 6px; }
+  .app-card p { font-size: .95rem; color: #475569; }
+  .app-card .badge { display: inline-block; margin-top: 10px; font-size: .8rem; color: var(--emerald); font-weight: 600; }
+  footer { text-align: center; padding: 24px; color: #64748B; font-size: .9rem; border-top: 1px solid #E2E8F0; }
+</style>
+</head>
+<body>
+<header>
+  <h1>ACPS</h1>
+  <p>Kumpulan aplikasi & layanan</p>
+</header>
+<main>
+  <p class="intro">Selamat datang di halaman utama. Berikut aplikasi-aplikasi yang kami kembangkan.</p>
+
+  <div class="apps">
+    <a class="app-card" href="/kasirku/">
+      <div class="emoji">🏪</div>
+      <h3>KasirKu</h3>
+      <p>Aplikasi POS untuk UMKM Indonesia — kasir, katalog, piutang, laporan, backup Drive.</p>
+      <span class="badge">Buka →</span>
+    </a>
+    <!-- Tambahkan aplikasi lain di sini sesuai kebutuhan -->
+  </div>
+</main>
+<footer>© 2026 Shandyawira · ACPS</footer>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KasirKu — Aplikasi POS UMKM Indonesia</title>
+<style>
+  :root { --emerald: #0F766E; --gold: #D4A017; --dark: #1E293B; --bg: #F8FAFC; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--dark); line-height: 1.7; }
+  header { background: linear-gradient(135deg, #0F766E, #115E59); color: #fff; padding: 56px 24px; text-align: center; }
+  header h1 { font-size: 2.4rem; margin-bottom: 8px; }
+  header p { font-size: 1.1rem; opacity: .9; }
+  main { max-width: 860px; margin: 0 auto; padding: 40px 24px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin: 32px 0; }
+  .card { background: #fff; border: 1px solid #E2E8F0; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+  .card h3 { color: var(--emerald); margin-bottom: 8px; }
+  .links { text-align: center; margin: 32px 0; }
+  .links a { display: inline-block; margin: 0 10px; color: var(--emerald); font-weight: 600; text-decoration: none; }
+  .links a:hover { text-decoration: underline; }
+  footer { text-align: center; padding: 24px; color: #64748B; font-size: .9rem; border-top: 1px solid #E2E8F0; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🏪 KasirKu</h1>
+  <p>Teman usaha setiap hari — aplikasi POS untuk UMKM Indonesia</p>
+</header>
+<main>
+  <p>KasirKu adalah aplikasi kasir (Point of Sale) yang berjalan <strong>offline di perangkat Anda</strong>. Kelola produk, transaksi, piutang, dan laporan harian — plus cadangan (backup) otomatis ke Google Drive milik Anda sendiri.</p>
+
+  <div class="cards">
+    <div class="card"><h3>Kasir cepat</h3><p>Katalog produk & checkout sekali sentuh, struk thermal 58/80 mm.</p></div>
+    <div class="card"><h3>Data milik Anda</h3><p>Data tersimpan lokal di perangkat. Backup hanya ke Google Drive akun Anda.</p></div>
+    <div class="card"><h3>Gratis & offline</h3><p>Tanpa biaya bulanan, tetap berjalan tanpa internet untuk transaksi.</p></div>
+  </div>
+
+  <div class="links">
+    <a href="privacy.html">Kebijakan Privasi</a>
+    <a href="terms.html">Syarat & Ketentuan</a>
+  </div>
+</main>
+<footer>© 2026 Shandyawira · KasirKu</footer>
+</body>
+</html>
