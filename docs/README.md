@@ -9,7 +9,8 @@
 docs/
 ├── README.md                  ← file ini (indeks)
 ├── architecture/
-│   └── project-structure.md   ← struktur folder & bagaimana halaman dihubungkan
+│   ├── project-structure.md   ← struktur folder & bagaimana halaman dihubungkan
+│   └── deployment.md          ← cara deploy & auto-pull (pola kurivox)
 └── features/
     ├── landing-page.md        ← halaman utama ACPS (index.html root)
     └── kasirku.md             ← landing KasirKu + privacy + terms
@@ -29,3 +30,9 @@ docs/
 |---|---|---|
 | Landing page ACPS | [landing-page.md](features/landing-page.md) | Halaman utama hub aplikasi ACPS |
 | KasirKu (POS UMKM) | [kasirku.md](features/kasirku.md) | Landing, privacy policy, terms of service |
+
+## Referensi lain
+
+| Topik | Dokumen |
+|---|---|
+| Deployment & auto-pull | [deployment.md](architecture/deployment.md) |

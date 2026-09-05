@@ -1,0 +1,17 @@
+name: Deploy (production)
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.ACPS_SSH_KEY_B64 }}" | base64 -d > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+      - name: Deploy
+        run: |
+          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ${{ secrets.ACPS_DEPLOY_USER }}@${{ secrets.ACPS_DEPLOY_HOST }} /home/${{ secrets.ACPS_DEPLOY_USER }}/services/acps-web/deploy.sh

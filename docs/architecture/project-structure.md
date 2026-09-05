@@ -22,6 +22,8 @@ acps/
 │           ├── privacy.astro ← Kebijakan Privasi
 │           └── terms.astro   ← Syarat & Ketentuan
 ├── docs/                     ← dokumentasi (lihat docs/README.md)
+├── .github/workflows/        ← auto-deploy: deploy-production.yml (pola kurivox)
+├── deploy/                   ← deploy.sh (template utk server) + README setup
 ├── .agents/skills/doc-flow/  ← workflow dokumentasi (wajib)
 └── dist/                     ← hasil build (gitignored; ini yang di-upload ke hosting)
 ```
@@ -32,6 +34,10 @@ npm install
 npm run build     # menghasilkan dist/
 ```
 Upload **isi `dist/`** ke root web server (`public_html`/`/var/www/html`). Tidak ada runtime server — hasil akhirnya HTML+CSS+JS statis.
+
+Ada dua cara deploy; detail lengkap di [docs/architecture/deployment.md](deployment.md) dan `deploy/README.md`:
+1. **Manual**: build `npm run build`, lalu upload isi `dist/` ke web root.
+2. **Otomatis (pola kurivox)**: `.github/workflows/deploy-production.yml` memicu push ke `main`, lalu SSH ke server menjalankan `deploy.sh` (git pull + `npm ci` + `npm run build` + rsync `dist/` ke web root). Secret GitHub: `ACPS_SSH_KEY_B64`, `ACPS_DEPLOY_USER`, `ACPS_DEPLOY_HOST`.
 
 ## URL hasil build (format directory)
 | Halaman | URL |

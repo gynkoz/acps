@@ -23,6 +23,8 @@ acps/
 │           ├── index.astro   → landing KasirKu
 │           ├── privacy.astro → Kebijakan Privasi KasirKu
 │           └── terms.astro   → Syarat & Ketentuan KasirKu
+├── .github/workflows/        → auto-deploy (deploy-production.yml, pola kurivox)
+├── deploy/                   → deploy.sh (template server) + README setup
 └── dist/                     → hasil build (yang di-upload ke hosting)
 ```
 
@@ -44,7 +46,11 @@ npm run dev        # development server (hot reload)
 > Privacy & terms kini di-build sebagai folder (`/kasirku/privacy/index.html`). URL tanpa trailing slash tetap disajikan dengan benar oleh nginx/Apache.
 
 ## Cara deploy (home server / hosting)
-Jalankan `npm run build`, lalu upload **seluruh isi folder `dist/`** ke root web server (misal `public_html`, `www`, atau `/var/www/html` di home server).
+Ada dua mode — dokumentasi lengkap: `docs/architecture/deployment.md` & `deploy/README.md`.
+
+**Manual:** Jalankan `npm run build`, lalu upload **seluruh isi folder `dist/`** ke root web server (misal `public_html`, `www`, atau `/var/www/html` di home server).
+
+**Otomatis (pola kurivox):** setiap push ke `main`, GitHub Actions SSH ke server dan menjalankan `deploy/deploy.sh` (git pull + build + rsync `dist/` ke web root). Siapkan secret `ACPS_SSH_KEY_B64`, `ACPS_DEPLOY_USER`, `ACPS_DEPLOY_HOST`.
 
 Contoh nginx:
 ```
