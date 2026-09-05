@@ -7,11 +7,25 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Install cloudflared (untuk tunnel SSH)
+        run: |
+          curl -sL https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb -o /tmp/cloudflared.deb
+          sudo dpkg -i /tmp/cloudflared.deb
+          cloudflared --version
       - name: Prepare SSH key
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.ACPS_SSH_KEY_B64 }}" | base64 -d > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-      - name: Deploy
+      - name: Deploy via Cloudflare Tunnel SSH
         run: |
-          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ${{ secrets.ACPS_DEPLOY_USER }}@${{ secrets.ACPS_DEPLOY_HOST }} /home/${{ secrets.ACPS_DEPLOY_USER }}/services/acps-web/deploy.sh
+          # Connect ke server lewat tunnel (deploy.acps.my.id → ssh://localhost:22),
+          # tanpa buka port 22 publik. Hostname deploy TIDAK dilindungi Cloudflare Access
+          # (key SSH ed25519 sbg satu2nya auth). Remote jalankan deploy.sh.
+          ssh -i ~/.ssh/id_ed25519 \
+              -o StrictHostKeyChecking=no \
+              -o ConnectTimeout=60 \
+              -o ServerAliveInterval=15 \
+              -o ProxyCommand="cloudflared access ssh --hostname %h" \
+              ${{ secrets.ACPS_DEPLOY_USER }}@deploy.acps.my.id \
+              /home/${{ secrets.ACPS_DEPLOY_USER }}/services/acps-web/deploy.sh
