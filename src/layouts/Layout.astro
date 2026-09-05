@@ -469,6 +469,8 @@ const { page, titleId, titleEn, descId, descEn, footerKey } = Astro.props;
       background: linear-gradient(90deg, var(--border), transparent);
     }
     .prose p { margin-bottom: 14px; }
+    .prose a { color: var(--mint); text-decoration: none; border-bottom: 1px solid var(--border); transition: color .2s ease, border-color .2s ease; }
+    .prose a:hover { color: var(--cyan); border-color: var(--cyan); }
     .prose ul { padding-left: 22px; margin-bottom: 16px; }
     .prose li { margin-bottom: 6px; }
     .prose li::marker { color: var(--mint); }

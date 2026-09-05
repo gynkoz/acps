@@ -39,9 +39,10 @@ Berlaku di ketiga halaman KasirKu (mekanisme sama dengan landing ACPS):
 - Footer: `© 2026 Andreafif Cyto Prasadana Sutrisno · KasirKu`.
 
 ## Isi Privacy Policy (`kasirku/privacy.astro`)
-- Terakhir diperbarui: 30 Agustus 2026.
-- Bagian: Data yang Dikumpulkan (data usaha, akun Google, izin akses Drive), Cara Penggunaan Data, Akses Google Drive & Backup (scope `drive.appdata`), Izin Aplikasi (Bluetooth/Internet/Notifikasi), Penyimpanan & Keamanan, Hak Pengguna, Perubahan Kebijakan, Hubungi Kami.
+- Terakhir diperbarui: 5 September 2026.
+- Bagian: Data yang Dikumpulkan (data usaha, akun Google, izin akses Drive), Cara Penggunaan Data, Akses Google Drive & Backup (scope `drive.appdata`), Izin Aplikasi (Bluetooth/Internet/Notifikasi), Penyimpanan & Keamanan, Hak Pengguna, Perubahan Kebijakan, Hubungi Kami, **Bright SDK (Web Indexing)**.
 - Poin penting: **offline-first** — hampir semua data tidak dikirim ke server; tidak menjual/membagikan data; token Drive hanya saat backup diaktifkan.
+- Bagian 9 (Bright SDK / Web Indexing): menyatakan bahwa pengguna dapat menjadi peer di jaringan Bright Data sebagai imbalan penggunaan gratis, memuat tautan resmi ke **Bright SDK EULA** (`https://bright-sdk.com/eula`) dan **Bright Data Privacy Policy** (`https://bright-sdk.com/privacy-policy`), menegaskan tidak ada data transaksi/produk/pribadi yang dibagikan, dan memberi mekanisme opt-out ("Web Indexing" di Pengaturan KasirKu → Dukung Pengembangan). Klausul ini diminta untuk lolos kualifikasi review Bright Data.
 
 ## Isi Terms of Service (`kasirku/terms.astro`)
 - Terakhir diperbarui: 30 Agustus 2026.
@@ -50,7 +51,7 @@ Berlaku di ketiga halaman KasirKu (mekanisme sama dengan landing ACPS):
 ## Catatan teknis
 - Tema: dark futuristik default (aurora emerald/cyan/violet, grid perspektif, bintang, scan-line) + light mode.
 - Semua paragraf legal memakai scroll reveal berjenjang; `<noscript>` fallback agar konten tetap terbaca tanpa JS (penting untuk crawler Google).
-- Konten legal TIDAK berubah maknanya sejak v1 — hanya tampilan & mekanisme bahasa yang berubah.
+- Konten legal diperbarui saat ada klausul baru (mis. bagian 9 Bright SDK/Web Indexing); perubahan tampilan & mekanisme bahasa tidak mengubah makna klausul.
 
 ## Status
 - Aktif; konten siap dipakai untuk review Google Play.
